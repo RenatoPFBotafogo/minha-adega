@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Minha Adega</title>
+<meta name="description" content="Minha Adega: vinhos, posições na adega, hora certa de abrir e preço médio.">
+<meta name="theme-color" content="#1a210f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Minha Adega">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<style>
+  /* Página de entrada: só abre o app (Google Apps Script) em tela cheia. Os dados ficam no app, que pede o login Google. */
+  html, body { margin: 0; height: 100%; background: #1a210f; overflow: hidden; }
+  .splash { position: fixed; inset: 0; display: grid; place-items: center; align-content: center; gap: 14px; color: #e3d49a;
+    font: 600 15px/1.3 system-ui, -apple-system, "Segoe UI", sans-serif; text-align: center; padding: 24px; }
+  .splash img { width: 88px; height: 88px; border-radius: 22px; }
+  .splash small { color: rgba(255, 255, 255, .6); font-weight: 400; max-width: 30ch; }
+  iframe { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; background: transparent; }
+</style>
+</head>
+<body>
+<div class="splash" aria-hidden="true">
+  <img src="icon-192.png" alt="">
+  <div>Minha Adega</div>
+  <small id="hint">Abrindo…</small>
+</div>
+<iframe id="app" title="Minha Adega"
+  src="https://script.google.com/macros/s/AKfycbzewU8HjvSwIlx1UJPyyiB_zau2qUc9pLX8nH9JBwOl_qHn8DG9XIa1VP8985uZDeqs/exec"
+  allow="camera; clipboard-write; fullscreen"></iframe>
+<script>
+  // Se demorar muito (conta Google errada ou sem login), mostra uma dica por trás do app.
+  setTimeout(function () { var h = document.getElementById("hint");
+    h.textContent = "Se o app não abrir, entre com a sua conta Google pessoal neste navegador e abra de novo."; }, 12000);
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(function () {});
+</script>
+</body>
+</html>
